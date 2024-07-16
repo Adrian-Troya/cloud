@@ -5,6 +5,7 @@ const customerHandler = require('./app/handlers/customer.handler');
 const employeeHandler = require('./app/handlers/employee.handler');
 const supplierHandler = require('./app/handlers/supplier.handler');
 const productHandler = require('./app/handlers/product.handler');
+const categorieHandler = require('./app/handlers/categorie.handler');
 // variable para encapsular rutas
 
 const router = express.Router();
@@ -31,6 +32,11 @@ router.get('/products', productHandler.listProducts);  // Obtener todos los prod
 router.post('/products', productHandler.insertProduct);  // Insertar un nuevo producto
 router.put('/products/:id', productHandler.updateProduct);  // Actualizar un producto existente
 router.delete('/products/:id', productHandler.deleteProduct);  // Eliminar un producto
+
+router.get('/categories', categorieHandler.listCategories);   // Obtener todas las categorías
+router.post('/categories', categorieHandler.insertCategorie);  // Insertar una nueva categoría
+router.put('/categories/:id', categorieHandler.updateCategorie); // Actualizar una categoría existente
+router.delete('/categories/:id', categorieHandler.deleteCategorie);  // Eliminar una categoría
 
 //otras rutas ...
 module.exports = router;
