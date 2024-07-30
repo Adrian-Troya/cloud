@@ -1,24 +1,24 @@
-const { Model } = require('objection');  // Importar Model de Objection.js
+const { Model } = require('objection');
 
 class Supplier extends Model {
     static get tableName() {
-        return 'supplier';  // Nombre de la tabla en la base de datos
+        return 'supplier';
     }
 
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['name', 'email', 'contact_number', 'address'],  // Campos obligatorios al insertar un nuevo registro
+            required: ['name', 'email', 'contact_number', 'address'],
 
             properties: {
-                id: { type: 'integer' },  // Campo de tipo entero para el identificador único del proveedor
-                name: { type: 'string', minLength: 1 },  // Campo de texto para el nombre del proveedor, no puede estar vacío
-                email: { type: 'string', format: 'email' },  // Campo de texto para el correo electrónico del proveedor, debe ser un email válido
-                contact_number: { type: 'string', minLength: 1 },  // Campo de texto para el número de contacto del proveedor
-                address: { type: 'string', minLength: 1 },  // Campo de texto para la dirección del proveedor, no puede estar vacío
-                created_at: { type: 'string', format: 'date-time' },  // Campo de texto para la fecha de creación del registro
-                updated_at: { type: 'string', format: 'date-time' },  // Campo de texto para la fecha de actualización del registro
-                age: { type: 'integer' }  // Campo entero para la edad del proveedor
+                id: { type: 'integer' },
+                name: { type: 'string', minLength: 1 },
+                email: { type: 'string', format: 'email' },
+                contact_number: { type: 'string', minLength: 1 },
+                address: { type: 'string', minLength: 1 },
+                age: { type: 'integer', minimum: 0 },  // Atributo 'age' añadido
+                created_at: { type: 'string', format: 'date-time' },
+                updated_at: { type: 'string', format: 'date-time' }
             }
         };
     }
@@ -40,4 +40,4 @@ class Supplier extends Model {
     }
 }
 
-module.exports = Supplier;  // Exportar el modelo Supplier para 
+module.exports = Supplier;

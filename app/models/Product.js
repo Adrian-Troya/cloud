@@ -14,11 +14,10 @@ class Product extends Model {
                 id: { type: 'integer' },  // Campo de tipo entero para el identificador único del producto
                 name: { type: 'string', minLength: 1 },  // Campo de texto para el nombre del producto, no puede estar vacío
                 description: { type: 'string' },  // Campo de texto para la descripción del producto
-                price: { type: 'number' },  // Campo numérico para el precio del producto, configurado como decimal(14,2) en la migración
+                price: { type: 'number' },  // Campo numérico para el precio del producto
                 stock: { type: 'integer', minimum: 0 },  // Campo entero para el stock del producto, no puede ser negativo
                 created_at: { type: 'string', format: 'date-time' },  // Campo de texto para la fecha de creación del registro
                 updated_at: { type: 'string', format: 'date-time' },  // Campo de texto para la fecha de actualización del registro
-                age: { type: 'integer' }  // Campo entero para la edad del producto
             }
         };
     }

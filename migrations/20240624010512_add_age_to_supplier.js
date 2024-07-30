@@ -4,9 +4,21 @@
  */
 exports.up = function(knex) {
     return knex.schema.table('supplier', function(table){
-        table.integer('age');
+        // Añadir nuevo atributo 'age'
+        table.integer('age').defaultTo(0);
+
+        // Añadir nuevo atributo 'created_at'
+        table.timestamp('created_at').defaultTo(knex.fn.now());
+
+        // Añadir nuevo atributo 'updated_at'
+        table.timestamp('updated_at').defaultTo(knex.fn.now());
+
+        // Añadir nuevo atributo 'address' (si no existe ya)
+        table.string('address').notNullable();
+
+        // Añadir nuevo atributo 'contact_number' (si no existe ya)
+        table.string('contact_number').notNullable();
     });
-  
 };
 
 /**
@@ -15,6 +27,11 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
     return knex.schema.table('supplier', function(table){
-        table.integer('age');
+        // Eliminar atributos añadidos en 'up'
+        table.dropColumn('age');
+        table.dropColumn('created_at');
+        table.dropColumn('updated_at');
+        table.dropColumn('address');
+        table.dropColumn('contact_number');
     });
 };

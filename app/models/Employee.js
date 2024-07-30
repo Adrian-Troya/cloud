@@ -1,47 +1,41 @@
-const { Model } = require('objection');  // Importar Model de Objection.js
+const { Model } = require('objection'); // Llamar a Model de la librería Objection
 
-class Employee extends Model {
-    // Especifica el nombre de la tabla en la base de datos
-    static get tableName() {
-        return 'employee';  // Nombre de la tabla en la base de datos
+class Customer extends Model { // Crear herencia de Model
+    static get tableName() { // Especificar el nombre de la tabla
+        return 'customer';
     }
 
-    // Define el esquema JSON para validar la estructura de datos del modelo
-    static get jsonSchema() {
+    static get jsonSchema() { // Especificar la estructura de la tabla
         return {
-            type: 'object',  // Define que el tipo de datos es un objeto
-            required: ['name', 'email', 'position', 'salary', 'hire_date'],  // Campos obligatorios al insertar un nuevo registro
+            type: 'object', // object para un dato, array para una tabla
+            required: ['name', 'email'], // Campos obligatorios
             
             properties: {
-                id: { type: 'integer' },  // Campo de tipo entero para el identificador único del empleado
-                name: { type: 'string', minLength: 1 },  // Campo de texto para el nombre del empleado, no puede estar vacío
-                email: { type: 'string', format: 'email' },  // Campo de texto para el correo electrónico del empleado, debe ser un email válido
-                position: { type: 'string', minLength: 1 },  // Campo de texto para la posición del empleado, no puede estar vacío
-                salary: { type: 'number' },  // Campo numérico para el salario del empleado, configurado como decimal(14,2) en la migración                hire_date: { type: 'string', format: 'date' },  // Campo de texto para la fecha de contratación del empleado, debe ser una fecha válida
-                age: { type: 'integer' }  // Campo entero para la edad del empleado
+                id: { type: 'integer' },
+                name: { type: 'string', minLength: 1 },
+                email: { type: 'string', format: 'email' },
+                age: { type: 'integer' },
+                status: { type: 'string', enum: ['Activo', 'Inactivo'] }, // Nuevo atributo status
+                registration_date: { type: 'string', format: 'date-time' } // Nuevo atributo registration_date
             }
         };
     }
 
-    // Método estático para obtener todos los empleados
-    static async getEmployees() {
-        return await Employee.query();  // Realiza una consulta para obtener todos los registros de la tabla 'employee'
+    static async getCustomers() { // Método para listar clientes
+        return await Customer.query(); // select * from customer
     }
 
-    // Método estático para insertar un nuevo empleado
-    static async insert(data) {
-        return await Employee.query().insert(data);  // Inserta un nuevo registro en la tabla 'employee' con los datos proporcionados
+    static async insert(data) {  // Diccionario de datos, método para insertar clientes
+        return await Customer.query().insert(data); // insert into customer values...
     }
 
-    // Método estático para actualizar un empleado existente
-    static async update(data, id) {
-        return await Employee.query().patchAndFetchById(id, data);  // Actualiza el registro con el ID especificado con los datos proporcionados
+    static async update(data, id) { // Método para actualizar o editar un cliente
+        return await Customer.query().patch(id, data); // update set data where id = 0 
     }
 
-    // Método estático para eliminar un empleado por su ID
-    static async delete(id) {
-        return await Employee.query().deleteById(id);  // Elimina el registro con el ID especificado de la tabla 'employee'
+    static async delete(id) { // Método para eliminar cliente 
+        return await Customer.query().deleteById(id); // delete from customer where id = 0
     }
 }
 
-module.exports = Employee;  // Exporta el modelo Employee para su uso en otras partes de la aplicación
+module.exports = Customer; // Exportar el modelo para su uso en otras partes de la aplicación
