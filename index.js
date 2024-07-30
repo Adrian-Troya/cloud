@@ -5,10 +5,14 @@ const knex = require('./db');
 //llamamos a la ruta routes.js conexion de cada ruta
 const routes= require('./routes');
 
+const cors=require('cors');
+
 const app = express(); // creamos una njueva instancia}
-const port = 3000; //puerto de salida
+const port = 3001; //puerto de salida
 
 app.use(express.json()); //configura tipo de dato json
+
+app.user(cors());
 
 app.use('/api', routes); // configura la url base y rutas
 
